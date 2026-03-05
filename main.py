@@ -121,7 +121,7 @@ while True:
 		fd3de.move("z", -3, piedras[p])
 		fd3de.render(piedras[p], fd3de.GREEN, 0.3)
 
-		if piedras[p]["position"][2] < -100:
+		if piedras[p]["position"][2] < -130:
 			fd3de.clear_object(piedras[p], 0.3)
 			del piedras[p]
 			print("Has perdido")
