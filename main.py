@@ -1,19 +1,12 @@
 import fd3de
-import curses
 import atexit
+import keyboard
 import wall_mover as WM
 import os
 import time
 import random
 
 
-stdscr = curses.initscr()
-curses.noecho()
-curses.cbreak()
-stdscr.keypad(True)
-stdscr.nodelay(True)
-
-atexit.register(curses.endwin)
 WM.main()
 
 nave = fd3de.load("Modelos/nave.fd3de")
@@ -29,6 +22,7 @@ fd3de.move("y", -100, nave)
 laseres = []
 piedras = []
 last_shot = 0
+
 
 def render():
 	fd3de.render(nave, fd3de.RED, 0.9)
@@ -59,28 +53,22 @@ while True:
 
 	# Detectar entradas de teclado
 	#-----------------------------
-	key = stdscr.getch()
 
-	if key == curses.KEY_RIGHT and nave["position"][0] < 180:	
-		fd3de.move("x", 10, nave)
+	if keyboard.is_pressed("right") and nave["position"][0] < 180:
+		fd3de.move("x", 7, nave)
 		nave["rotation"][2] = -15
-		
 
 
-		curses.flushinp()
-
-	elif key == curses.KEY_LEFT and nave["position"][0] > -180:
-		fd3de.move("x", -10, nave)
+	elif keyboard.is_pressed("left") and nave["position"][0] > -180:
+		fd3de.move("x", -7, nave)
 		nave["rotation"][2] = 15
 		
-		curses.flushinp()
 
-	elif key == 32:
+
+	elif keyboard.is_pressed("space"):
 		if time.time() - last_shot > 0.2:
 			last_shot = time.time()
 			shoot()
-	
-		curses.flushinp()
 
 	else:
 		fd3de.rotate("z", nave["rotation"][2]*-1, nave)
@@ -140,6 +128,7 @@ while True:
 			fd3de.clear_object(laseres[n])
 			del laseres[n]
 
+
 	# Colision de los láseres
 	#-------------------------
 	for n in range(len(laseres)-1, -1, -1):
@@ -153,3 +142,4 @@ while True:
 
 
 	render()
+	
