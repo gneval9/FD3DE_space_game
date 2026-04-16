@@ -5,7 +5,7 @@ import wall_mover as WM
 import os
 import time
 import random
-import nave_anim
+
 
 WM.main()
 
@@ -23,10 +23,24 @@ laseres = []
 piedras = []
 last_shot = 0
 
+last_speed_update = 0
+
+rock_speed = -3
+
+init_time = time.time()
+
+
 
 def render():
 	fd3de.render(nave, fd3de.RED, 0.9)
+	
+	WM.check_wall_pos()
+	WM.render(fd3de.YELLOW)
 	fd3de.update()
+
+
+	WM.render(fd3de.BLACK)
+
 
 	fd3de.clear_object(nave, 0.9)
 
@@ -78,6 +92,14 @@ while True:
 
 	# Generar y mover piedras
 	#-------------------------
+
+	if time.time() - last_speed_update > 5:
+		rock_speed += -0.1
+		last_speed_update = time.time()
+		
+	else:
+		pass
+
 	if len(piedras) < 5:
 		random_rot = random.randint(0,90)
 		while True:
@@ -106,7 +128,7 @@ while True:
 
 
 	for p in range(len(piedras)-1, -1, -1):
-		fd3de.move("z", -3, piedras[p])
+		fd3de.move("z", rock_speed, piedras[p])
 		fd3de.render(piedras[p], fd3de.GREEN, 0.3)
 
 		if piedras[p]["position"][2] < -130:
@@ -140,6 +162,7 @@ while True:
 				del laseres[n]
 				break
 
+	WM.move_walls()
 
 	render()
-	
+
