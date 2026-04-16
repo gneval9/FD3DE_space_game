@@ -7,15 +7,30 @@ walls_l = []
 
 
 def render(color):
+		
 	for n in range(len(walls_r)):
 		fd3de.render(walls_r[n], color)
-		fd3de.update()
+		
 	
 
 	for n in range(len(walls_l)):
 		fd3de.render(walls_l[n], color)
-		fd3de.update()
+	
 
+
+
+def move_walls():
+	global walls_l, walls_r
+
+	for n in range(len(walls_r)):
+		fd3de.move("z", -3, walls_r[n])
+		fd3de.move("z", -3, walls_l[n])
+
+
+def check_wall_pos():
+	if walls_r[0]['position'][2] < -400:
+		main()
+	
 
 
 def main():
@@ -42,4 +57,3 @@ def main():
 		fd3de.move("z", 400*n, walls_l[n])
 
 
-	render(fd3de.YELLOW)
