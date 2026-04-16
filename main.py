@@ -5,7 +5,7 @@ import wall_mover as WM
 import os
 import time
 import random
-
+import nave_anim
 
 WM.main()
 
