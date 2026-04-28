@@ -5,9 +5,14 @@ import wall_mover as WM
 import os
 import time
 import random
-import nave_anim
+
+#import nave_anim
+
+import framedirect as FD
+import FDWriter as FDW
 
 WM.main()
+FD.init()
 
 nave = fd3de.load("Modelos/nave.fd3de")
 
@@ -18,10 +23,13 @@ fd3de.rotate("x", -10, nave)
 fd3de.move("z", -150, nave)
 fd3de.move("y", -100, nave)
 
+screen_x, screen_y = FD.screen_width, FD.screen_height
 
 laseres = []
 piedras = []
 last_shot = 0
+
+space_was_pressed = False
 
 last_speed_update = 0
 
@@ -78,14 +86,32 @@ while True:
 		nave["rotation"][2] = 15
 		
 
-
-	elif keyboard.is_pressed("space"):
-		if time.time() - last_shot > 0.2:
-			last_shot = time.time()
-			shoot()
-
 	else:
 		fd3de.rotate("z", nave["rotation"][2]*-1, nave)
+
+
+
+
+	if keyboard.is_pressed("space"):
+		if time.time() - last_shot > 0.5 and space_was_pressed == False:
+			last_shot = time.time()
+			shoot()
+			space_was_pressed = True
+
+	if not keyboard.is_pressed("space"):
+		space_was_pressed = False
+
+
+
+	# GUI
+	#____
+
+	FDW.write("ShootAvail", screen_x - 600, 60, 10)
+	
+	if time.time() - last_shot > 0.5:
+		FD.draw_circle(screen_x - 50, 50, 20, FD.GREEN)
+	else:
+		FD.draw_circle(screen_x - 50, 50, 20, FD.RED)
 
 
 
@@ -134,7 +160,10 @@ while True:
 		if piedras[p]["position"][2] < -130:
 			fd3de.clear_object(piedras[p], 0.3)
 			del piedras[p]
-			print("Has perdido")
+			FD.fill(FD.BLACK)
+			FDW.write("HAS PERDIDO", screen_x // 2 - 500, screen_y // 2, 20)
+			FD.update()
+	
 			exit()
 
 
@@ -142,6 +171,7 @@ while True:
 
 	# Mover y eliminar láseres
 	#--------------------------
+
 	for n in range(len(laseres)-1, -1, -1):
 		fd3de.move("z", 20, laseres[n])
 		fd3de.render(laseres[n], fd3de.WHITE)
@@ -153,6 +183,7 @@ while True:
 
 	# Colision de los láseres
 	#-------------------------
+
 	for n in range(len(laseres)-1, -1, -1):
 		for i in range(len(piedras)-1, -1, -1):
 			if abs(laseres[n]["position"][0] - piedras[i]["position"][0]) < 30 and abs(laseres[n]["position"][2] - piedras[i]["position"][2]) < 30:

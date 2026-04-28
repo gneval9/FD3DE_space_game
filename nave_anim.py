@@ -1,28 +1,15 @@
 import fd3de
 import threading
 import FD_FontLoader as FL
+import FDWriter as FDW
 
 FL.load_font("VeFont.txt")
 
 nave = fd3de.load("Modelos/nave.fd3de")
 cubo = fd3de.load("Modelos/cubo.fd3de")
 
-FL.draw_char("F",100,100,10,fd3de.RED)
-FL.draw_char("D",150,100,10,fd3de.RED)
-FL.draw_char("3",200,100,10,fd3de.RED)
-FL.draw_char("D",250,100,10,fd3de.RED)
-FL.draw_char("E",300,100,10,fd3de.RED)
-
-FL.draw_char("S",100,150,7,fd3de.RED)
-FL.draw_char("p",130,150,7,fd3de.RED)
-FL.draw_char("a",160,150,7,fd3de.RED)
-FL.draw_char("c",190,150,7,fd3de.RED)
-FL.draw_char("e",220,150,7,fd3de.RED)
-FL.draw_char("g",250,150,7,fd3de.RED)
-FL.draw_char("a",280,150,7,fd3de.RED)
-FL.draw_char("m",310,150,7,fd3de.RED)
-FL.draw_char("e",340,150,7,fd3de.RED)
-
+FDW.write("FD3DE", 150, 100, 10)
+FDW.write("SpaceGame", 80, 180, 10)
 
 fd3de.move("y", -200, cubo)
 fd3de.move("y", -50, nave)

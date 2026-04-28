@@ -65,9 +65,9 @@ while True:
 		reload()
 
 	fd3de.render(obj, fd3de.GREEN, scale)
-	fd3de.render(ejes3D, fd3de.WHITE, 2)
+	fd3de.render(ejes3D, fd3de.WHITE, 2, False)
 	fd3de.update()
 	fd3de.clear_object(obj, scale)
-	fd3de.clear_object(ejes3D, 2)
+	fd3de.clear_object(ejes3D, 2, False)
 
 	reload()
