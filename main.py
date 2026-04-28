@@ -6,7 +6,7 @@ import os
 import time
 import random
 
-#import nave_anim
+import nave_anim
 
 import framedirect as FD
 import FDWriter as FDW
