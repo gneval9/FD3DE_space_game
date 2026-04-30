@@ -1,3 +1,6 @@
+# Made and developed by gneval9 Software
+# | 01-03-2026 | 30-04-2026 |
+
 import fd3de
 import atexit
 import keyboard
@@ -5,14 +8,20 @@ import wall_mover as WM
 import os
 import time
 import random
+import curses
 
 import nave_anim
 
 import framedirect as FD
 import FDWriter as FDW
 
+
 WM.main()
 FD.init()
+
+curses.initscr()
+curses.noecho()
+curses.curs_set(0)
 
 nave = fd3de.load("Modelos/nave.fd3de")
 
@@ -64,6 +73,7 @@ def render():
 
 
 
+
 def shoot():
 	nuevo_laser = fd3de.load("Modelos/laser.fd3de")
 	fd3de.move("x", nave["position"][0] - nuevo_laser["position"][0], nuevo_laser)
@@ -109,12 +119,13 @@ while True:
 	# GUI
 	#____
 
-	FDW.write("ShootAvail", 40, 60, 7)
+	FDW.write(f"Puntos: {puntos}", 40, 40, 5)
 	
 	if time.time() - last_shot > 0.5:
-		FD.draw_circle(400, 50, 10, FD.GREEN)
+		FD.draw_line(20, 60, 300, 60, FD.GREEN)
 	else:
-		FD.draw_circle(400, 50, 10, FD.RED)
+		FD.draw_line(20, 60, 300, 60, FD.RED)
+
 
 
 
@@ -165,13 +176,13 @@ while True:
 			del piedras[p]
 			FD.fill(FD.BLACK)
 			
-			FDW.write(f"Puntos {puntos}", screen_x // 2 - 200, screen_y // 2 + 200, 10, FD.GREEN)
+			FDW.write(f"Puntos: {puntos}", screen_x // 2 - 250, screen_y // 2 + 200, 10, FD.GREEN)
 
 			while True:
-				FDW.write("HAS PERDIDO", screen_x // 2 - 500, screen_y // 2 - 100, 20, FD.WHITE)
-				FD.update()
-				time.sleep(0.5)
 				FDW.write("HAS PERDIDO", screen_x // 2 - 500, screen_y // 2 - 100, 20, FD.RED)
+				FD.update()
+				time.sleep(0.7)
+				FDW.write("HAS PERDIDO", screen_x // 2 - 500, screen_y // 2 - 100, 20, FD.WHITE)
 				FD.update()	
 				time.sleep(0.5)
 
@@ -202,6 +213,7 @@ while True:
 				fd3de.clear_object(laseres[n])
 				del piedras[i]
 				del laseres[n]
+				FDW.write(f"Puntos: {puntos}", 40, 40, 5, FD.BLACK)
 				puntos += 1
 				break
 
