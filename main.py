@@ -106,12 +106,12 @@ while True:
 	# GUI
 	#____
 
-	FDW.write("ShootAvail", screen_x - 600, 60, 10)
+	FDW.write("ShootAvail", 20, 60, 7)
 	
 	if time.time() - last_shot > 0.5:
-		FD.draw_circle(screen_x - 50, 50, 20, FD.GREEN)
+		FD.draw_circle(400, 50, 10, FD.GREEN)
 	else:
-		FD.draw_circle(screen_x - 50, 50, 20, FD.RED)
+		FD.draw_circle(400, 50, 10, FD.RED)
 
 
 
@@ -161,9 +161,16 @@ while True:
 			fd3de.clear_object(piedras[p], 0.3)
 			del piedras[p]
 			FD.fill(FD.BLACK)
-			FDW.write("HAS PERDIDO", screen_x // 2 - 500, screen_y // 2, 20)
-			FD.update()
-	
+
+
+			while True:
+				FDW.write("HAS PERDIDO", screen_x // 2 - 500, screen_y // 2, 20, FD.WHITE)
+				FD.update()
+				time.sleep(0.5)
+				FDW.write("HAS PERDIDO", screen_x // 2 - 500, screen_y // 2, 20, FD.RED)
+				FD.update()	
+				time.sleep(0.5)
+
 			exit()
 
 
