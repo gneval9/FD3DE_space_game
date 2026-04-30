@@ -25,6 +25,9 @@ fd3de.move("y", -100, nave)
 
 screen_x, screen_y = FD.screen_width, FD.screen_height
 
+
+puntos = 0
+
 laseres = []
 piedras = []
 last_shot = 0
@@ -106,7 +109,7 @@ while True:
 	# GUI
 	#____
 
-	FDW.write("ShootAvail", 20, 60, 7)
+	FDW.write("ShootAvail", 40, 60, 7)
 	
 	if time.time() - last_shot > 0.5:
 		FD.draw_circle(400, 50, 10, FD.GREEN)
@@ -120,7 +123,7 @@ while True:
 	#-------------------------
 
 	if time.time() - last_speed_update > 5:
-		rock_speed += -0.1
+		rock_speed += -0.2
 		last_speed_update = time.time()
 		
 	else:
@@ -161,13 +164,14 @@ while True:
 			fd3de.clear_object(piedras[p], 0.3)
 			del piedras[p]
 			FD.fill(FD.BLACK)
-
+			
+			FDW.write(f"Puntos {puntos}", screen_x // 2 - 200, screen_y // 2 + 200, 10, FD.GREEN)
 
 			while True:
-				FDW.write("HAS PERDIDO", screen_x // 2 - 500, screen_y // 2, 20, FD.WHITE)
+				FDW.write("HAS PERDIDO", screen_x // 2 - 500, screen_y // 2 - 100, 20, FD.WHITE)
 				FD.update()
 				time.sleep(0.5)
-				FDW.write("HAS PERDIDO", screen_x // 2 - 500, screen_y // 2, 20, FD.RED)
+				FDW.write("HAS PERDIDO", screen_x // 2 - 500, screen_y // 2 - 100, 20, FD.RED)
 				FD.update()	
 				time.sleep(0.5)
 
@@ -198,6 +202,7 @@ while True:
 				fd3de.clear_object(laseres[n])
 				del piedras[i]
 				del laseres[n]
+				puntos += 1
 				break
 
 	WM.move_walls()
