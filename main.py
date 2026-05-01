@@ -8,7 +8,6 @@ import wall_mover as WM
 import os
 import time
 import random
-import curses
 
 import nave_anim
 
@@ -18,10 +17,6 @@ import FDWriter as FDW
 
 WM.main()
 FD.init()
-
-curses.initscr()
-curses.noecho()
-curses.curs_set(0)
 
 nave = fd3de.load("Modelos/nave.fd3de")
 
