@@ -2,6 +2,11 @@ import fd3de
 import threading
 import FD_FontLoader as FL
 import FDWriter as FDW
+import framedirect as FD
+
+FD.init()
+
+screen_x, screen_y = FD.screen_width, FD.screen_height
 
 FL.load_font("VeFont.txt")
 
@@ -10,6 +15,11 @@ cubo = fd3de.load("Modelos/cubo.fd3de")
 
 FDW.write("FD3DE", 150, 100, 10)
 FDW.write("SpaceGame", 80, 180, 10)
+
+FDW.write("Made and developed by", screen_x - 610, 50, 3) 
+FDW.write("gneval9 Software", screen_x - 600, 120, 7) 
+FDW.write("In 03-2026", screen_x - 550, 180, 2) 
+
 
 fd3de.move("y", -200, cubo)
 fd3de.move("y", -50, nave)

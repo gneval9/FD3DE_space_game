@@ -19,6 +19,7 @@ WM.main()
 FD.init()
 
 nave = fd3de.load("Modelos/nave.fd3de")
+back_line = fd3de.load("Modelos/long_line.fd3de")
 
 
 fd3de.rotate("y", 180, nave)
@@ -26,6 +27,9 @@ fd3de.rotate("x", -10, nave)
 
 fd3de.move("z", -150, nave)
 fd3de.move("y", -100, nave)
+
+fd3de.move("z", -130, back_line)
+fd3de.move("y", -150, back_line)
 
 screen_x, screen_y = FD.screen_width, FD.screen_height
 
@@ -47,6 +51,8 @@ init_time = time.time()
 
 
 def render():
+	fd3de.render(back_line, 0xFF101010)
+
 	fd3de.render(nave, fd3de.RED, 0.9)
 	
 	WM.check_wall_pos()
@@ -55,7 +61,8 @@ def render():
 
 
 	WM.render(fd3de.BLACK)
-
+	
+	
 
 	fd3de.clear_object(nave, 0.9)
 
@@ -176,9 +183,11 @@ while True:
 			while True:
 				FDW.write("HAS PERDIDO", screen_x // 2 - 500, screen_y // 2 - 100, 20, FD.RED)
 				FD.update()
+				print(" ")
 				time.sleep(0.7)
 				FDW.write("HAS PERDIDO", screen_x // 2 - 500, screen_y // 2 - 100, 20, FD.WHITE)
-				FD.update()	
+				FD.update()
+				print(" ")
 				time.sleep(0.5)
 
 			exit()
