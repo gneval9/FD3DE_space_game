@@ -5,6 +5,8 @@ import framedirect as FD
 
 FD.init()
 
+screen_x = FD.screen_width
+
 def load_font(path):
 	global font
 	file = open(path)
@@ -13,7 +15,7 @@ def load_font(path):
 def draw_char(char, x, y, scale, color):
 	global font
 	for n in range(len(font[char])):
-		FD.draw_line((font[char][n][0][0] * scale) + x, (font[char][n][0][1] * scale) + y, (font[char][n][1][0] * scale) + x, (font[char][n][1][1] * scale) + y, color)
+		FD.draw_line((font[char][n][0][0] * (scale * (screen_x//1500))) + x, (font[char][n][0][1] * (scale * (screen_x//1500))) + y, (font[char][n][1][0] * (scale * (screen_x//1500))) + x, (font[char][n][1][1] * (scale * (screen_x//1500))) + y, color)
 
 
 def update():
