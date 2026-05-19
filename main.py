@@ -21,6 +21,7 @@ FD.init()
 nave = fd3de.load("Modelos/nave.fd3de")
 back_line = fd3de.load("Modelos/long_line.fd3de")
 
+fd3de.perspective = "side"
 
 fd3de.rotate("y", 180, nave)
 fd3de.rotate("x", -10, nave)
@@ -122,7 +123,8 @@ while True:
 	#____
 
 	FDW.write(f"Puntos: {puntos}", 40, 40, 5)
-	
+
+
 	if time.time() - last_shot > 0.5:
 		FD.draw_line(20, 60, 300, 60, FD.GREEN)
 	else:
@@ -219,6 +221,8 @@ while True:
 				del laseres[n]
 				FDW.write(f"Puntos: {puntos}", 40, 40, 5, FD.BLACK)
 				puntos += 1
+				FDW.write(f"Puntos: {puntos}", 40, 40, 5)
+
 				break
 
 	WM.move_walls()
